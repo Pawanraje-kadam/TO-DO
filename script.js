@@ -1,73 +1,65 @@
-const taskInput = document.getElementById('task-input');
-const addBtn = document.getElementById('add-btn');
-const taskList = document.getElementById('task-list');
-const taskCounter = document.getElementById('task-counter');
+/* --- NEW FEATURE STYLES --- */
 
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-function init() { renderTasks(); updateCounter(); }
-
-function saveTasks() { localStorage.setItem('tasks', JSON.stringify(tasks)); updateCounter(); }
-
-function updateCounter() {
-  const pendingTasks = tasks.filter(task => !task.completed).length;
-  taskCounter.textContent = `${pendingTasks} task${pendingTasks !== 1 ? 's' : ''} pending`;
+/* Header & Filters */
+.header-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-function addTask() {
-  const text = taskInput.value.trim();
-  if (!text) return; 
-  const newTask = { id: Date.now().toString(), text: text, completed: false };
-  tasks.unshift(newTask);
-  saveTasks(); renderTasks(); taskInput.value = '';
+header p {
+  margin-bottom: 0; /* Removing old margin */
 }
 
-function toggleTask(id) {
-  tasks = tasks.map(task => {
-    if (task.id === id) return { ...task, completed: !task.completed };
-    return task;
-  });
-  saveTasks(); renderTasks();
+.filters {
+  display: flex;
+  gap: 8px;
 }
 
-function deleteTask(id) {
-  tasks = tasks.filter(task => task.id !== id);
-  saveTasks(); renderTasks();
+.filter-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-function renderTasks() {
-  taskList.innerHTML = '';
-  tasks.forEach(task => {
-    const li = document.createElement('li');
-    li.className = `task-item ${task.completed ? 'completed' : ''}`;
-    
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'task-content';
-    
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.checked = task.completed;
-    checkbox.addEventListener('change', () => toggleTask(task.id));
-    
-    const span = document.createElement('span');
-    span.className = 'task-text';
-    span.textContent = task.text;
-    
-    contentDiv.appendChild(checkbox);
-    contentDiv.appendChild(span);
-    
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'delete-btn';
-    deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>';
-    deleteBtn.addEventListener('click', () => deleteTask(task.id));
-    
-    li.appendChild(contentDiv);
-    li.appendChild(deleteBtn);
-    taskList.appendChild(li);
-  });
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
-addBtn.addEventListener('click', addTask);
-taskInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addTask(); });
+.filter-btn.active {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.8);
+}
 
-init();
+/* Clear Completed Button */
+#clear-completed-btn {
+  background: rgba(255, 107, 107, 0.15);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+#clear-completed-btn:hover {
+  background: rgba(255, 107, 107, 0.4);
+  color: #fff;
+}
+
+.hidden {
+  display: none !important;
+}
