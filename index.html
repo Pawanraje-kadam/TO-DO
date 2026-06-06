@@ -1,35 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glassmorphism To-Do</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glass Tasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <main class="glass-app">
-    <header>
-      <h1>My Tasks</h1>
-      <div class="header-details">
-        <p id="task-counter">0 tasks pending</p>
-        <div class="filters">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="active">Active</button>
-          <button class="filter-btn" data-filter="completed">Done</button>
+
+  <!-- Animated background orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+  </div>
+
+  <main class="container">
+
+    <!-- Header -->
+    <header class="glass-header">
+      <div class="header-left">
+        <div class="logo-icon">✦</div>
+        <div>
+          <h1 class="app-title">Glass Tasks</h1>
+          <p class="app-date" id="currentDate"></p>
+        </div>
+      </div>
+      <div class="header-stats">
+        <div class="stat-pill">
+          <span class="stat-num" id="totalCount">0</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-pill done-pill">
+          <span class="stat-num" id="doneCount">0</span>
+          <span class="stat-label">Done</span>
         </div>
       </div>
     </header>
-    <div class="input-section">
-      <input type="text" id="task-input" placeholder="What needs to be done?" autocomplete="off">
-      <button id="add-btn" aria-label="Add Task">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-      </button>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+      <span class="progress-label" id="progressLabel">0% complete</span>
     </div>
-    <ul id="task-list"></ul>
-    
-    <button id="clear-completed-btn" class="hidden">Clear Completed Tasks</button>
+
+    <!-- Input area -->
+    <div class="glass-input-card">
+      <div class="input-row">
+        <div class="input-wrap">
+          <span class="input-icon">+</span>
+          <input
+            type="text"
+            id="taskInput"
+            class="task-input"
+            placeholder="Add a new task..."
+            maxlength="100"
+            autocomplete="off"
+          />
+        </div>
+        <select id="prioritySelect" class="priority-select">
+          <option value="low">🟢 Low</option>
+          <option value="medium" selected>🟡 Medium</option>
+          <option value="high">🔴 High</option>
+        </select>
+        <button class="add-btn" id="addBtn">Add Task</button>
+      </div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      <button class="tab active" data-filter="all">All</button>
+      <button class="tab" data-filter="active">Active</button>
+      <button class="tab" data-filter="completed">Completed</button>
+      <button class="tab danger-tab" id="clearBtn">Clear Done</button>
+    </div>
+
+    <!-- Task list -->
+    <div class="task-list" id="taskList"></div>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">✦</div>
+      <p class="empty-title">No tasks here</p>
+      <p class="empty-sub">Add something above to get started</p>
+    </div>
+
   </main>
-  <script src="script.js"></script>
+
+  <script src="app.js"></script>
 </body>
 </html>
