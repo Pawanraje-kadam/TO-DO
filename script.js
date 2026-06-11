@@ -248,17 +248,66 @@ function formatDueDate(dateString) {
     bindTaskEvents(el, task);
   }
 
-  function taskHTML(task) {
-    const checkmark = task.completed ? '✓' : '';
-    const badgeClass = `badge-${task.priority}`;
-    const priorityLabel = task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
-    return `
-      <div class="task-checkbox" role="button" aria-label="Toggle complete" tabindex="0">${checkmark}</div>
-      <span class="task-text">${escapeHTML(task.text)}</span>
-      <span class="priority-badge ${badgeClass}">${priorityLabel}</span>
-      <button class="delete-btn" aria-label="Delete task" title="Delete">✕</button>
-    `;
-  }
+function taskHTML(task) {
+  const checkmark = task.completed ? '✓' : '';
+
+  const badgeClass = `badge-${task.priority}`;
+
+  const priorityLabel =
+    task.priority.charAt(0).toUpperCase() +
+    task.priority.slice(1);
+
+  const overdue = isTaskOverdue(task);
+
+  return `
+    <div
+      class="task-checkbox"
+      role="button"
+      aria-label="Toggle complete"
+      tabindex="0"
+    >
+      ${checkmark}
+    </div>
+
+    <div class="task-content">
+
+      <span class="task-text">
+        ${escapeHTML(task.text)}
+      </span>
+
+      ${
+        task.dueDate
+          ? `
+            <div class="task-meta">
+              <span class="due-date">
+                📅 ${formatDueDate(task.dueDate)}
+              </span>
+
+              ${
+                overdue
+                  ? `<span class="overdue-badge">Overdue</span>`
+                  : ''
+              }
+            </div>
+          `
+          : ''
+      }
+
+    </div>
+
+    <span class="priority-badge ${badgeClass}">
+      ${priorityLabel}
+    </span>
+
+    <button
+      class="delete-btn"
+      aria-label="Delete task"
+      title="Delete"
+    >
+      ✕
+    </button>
+  `;
+}
 
   function bindTaskEvents(el, task) {
     const checkbox = el.querySelector('.task-checkbox');
