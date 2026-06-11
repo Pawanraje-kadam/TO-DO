@@ -14,6 +14,7 @@
 
   const taskInput      = document.getElementById('taskInput');
   const prioritySelect = document.getElementById('prioritySelect');
+  const dueDateInput   = document.getElementById('dueDateInput');
   const addBtn         = document.getElementById('addBtn');
   const taskList       = document.getElementById('taskList');
   const emptyState     = document.getElementById('emptyState');
