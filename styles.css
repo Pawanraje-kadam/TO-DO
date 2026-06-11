@@ -543,7 +543,10 @@ body {
   word-break: break-word;
   transition: color var(--transition);
 }
-
+.task-content {
+  flex: 1;
+  min-width: 0;
+}
 /* ── Priority Badge ────────────────────── */
 
 .priority-badge {
