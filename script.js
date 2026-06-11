@@ -69,14 +69,15 @@
       shakeInput();
       return;
     }
-
-    const task = {
-      id: Date.now(),
-      text,
-      priority: prioritySelect.value,
-      completed: false,
-      createdAt: new Date().toISOString()
-    };
+const task = {
+  id: Date.now(),
+  text,
+  priority: prioritySelect.value,
+  completed: false,
+  createdAt: new Date().toISOString(),
+  dueDate: dueDateInput.value || null
+};
+    
 
     tasks.unshift(task);
     saveTasks();
