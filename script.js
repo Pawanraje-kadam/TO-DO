@@ -82,8 +82,9 @@ const task = {
     tasks.unshift(task);
     saveTasks();
     renderAll();
-    taskInput.value = '';
-    taskInput.focus();
+   taskInput.value = '';
+dueDateInput.value = '';
+taskInput.focus();
   }
 
   function shakeInput() {
